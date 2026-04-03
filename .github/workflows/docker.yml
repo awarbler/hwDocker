@@ -1,11 +1,13 @@
 name: Docker CI/CD
-
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 on:
     push:
         branches: ["main"]
 jobs:
-    build:
+    build-and-push:
         runs-on: ubuntu-latest
+
         steps:
             # step one checkout code
             - name: Checkout repository
@@ -13,8 +15,17 @@ jobs:
             # step 2 set up docker buildx 
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v3
-
-            # step 3 build docker image 
-            - name: Build Docker image
-              run: docker build -t hello-microservice .
+            # step 3 login to Docker hub
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                # github secrets for docker hub credentials
+                username: ${{ secrets.DOCKER_USERNAME }}
+                # github secrets for docker hub credentials
+                password: ${{ secrets.DOCKER_PASSWORD }}
+            # build and push docker image 
+            - name: Build and pushDocker image
+              run: 
+                docker build -t txwarbler/hello-microservice:latest .
+                docker push txwarbler/hello-microservice:latest
 
