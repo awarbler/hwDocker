@@ -1,0 +1,20 @@
+name: Docker CI/CD
+
+on:
+    push:
+        branches: ["main"]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            # step one checkout code
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            # step 2 set up docker buildx 
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            # step 3 build docker image 
+            - name: Build Docker image
+              run: docker build -t hello-microservice .
+
