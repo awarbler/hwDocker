@@ -25,7 +25,7 @@ jobs:
                 password: ${{ secrets.DOCKER_PASSWORD }}
             # build and push docker image 
             - name: Build and pushDocker image
-              run: 
+              run: |
                 docker build -t txwarbler/hello-microservice:latest .
                 docker push txwarbler/hello-microservice:latest
 
