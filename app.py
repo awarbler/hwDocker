@@ -25,7 +25,9 @@ app = FastAPI()
 def read_root():
     #return {"message": "Hello from a Dockerized microservice!"}
     logging.info("Root endpoint was called")
-    return {"message": os.getenv("SERVICE_NAME", "Hello from default")}
+    #return {"message": os.getenv("SERVICE_NAME", "Hello from default")}
+    #return {"message": os.getenv("SERVICE_NAME", "Hello from version 1!")}
+    return {"message": os.getenv("SERVICE_NAME", "Hello from version 2!")}
 
 # Health endpoint (real-world microservice pattern)
 @app.get("/health")

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: hello-microservice
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-microservice
+  template:
+    metadata:
+      labels:
+        app: hello-microservice
+    spec:
+      containers:
+        - name: hello-microservice
+          image: txwarbler/hello-microservice:2.0
+          ports:
+            - containerPort: 8000
+
+
+
